@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" >
+<div class="visual-size">
+	<div class="in">
+		<div class="in-image-list">
+			<ul class="image-list flex">
+				<th:block th:each="v:${list}">
+					<li class="image">
+						<a href="#" >
+							<!--/* <img th:src="|/images/index/visual${i}.jpg|" height="530px"> */-->
+							<img th:src="${v.url}" height="530px">
+						</a>
+					</li>
+				</th:block>
+			</ul>
+		</div>
+	</div>
+</div>
+<ul class="flex bullet-list between">
+	<li class="bullet" th:each="i : ${#numbers.sequence(1,4)}" ><button th:text="${i}"></button></li>
+</ul>
+
+</html>

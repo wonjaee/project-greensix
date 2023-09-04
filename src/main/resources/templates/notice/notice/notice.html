@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" 
+	th:replace="layout/common-layout :: commonLayout( ~{::head}, ~{::main} )">
+    <head>
+        <link rel="stylesheet" href="/css/notice/notice.css">
+    </head>
+    <main>
+        <div class="flex center notice">
+        	
+        	<div class="content">
+        		<a href="/notice">
+        		<div class="notice-up"><h2>NOTICE</h2></div>
+        		</a>
+        		<select>
+        			<option>전체</option>
+        			<option value="01">공지</option>
+        			<option value="02">당첨자 발표</option>
+        		</select>
+        		<div class="table">
+        			<table class="notice-table">
+        				<thead>
+	        				<tr>
+				    			<th>번호</th>
+				    			<th>제목</th>			    			
+				    			<th>작성일</th>    			
+				    		</tr>
+			    		</thead>
+			    		<tr th:each="dto:${list}">
+				    		<td th:text="${dto.no}">글번호</td>
+				    		<td>
+				    			<a th:text="${dto.title}" th:href="${'/notice/'+dto.no}">제목</a>
+				    		</td>			    			
+				    		<td th:text="${dto.createdDate}">내용</td>    			
+				    	</tr>
+        			</table>
+        		</div>
+        		<div class="notice-write-btn">
+        			<button sec:authorize="hasRole('ROLE_ADMIN')" type="button" onclick="location.href='/notice-write' ">글쓰기</button>
+        		</div>
+        		
+        		<div class="paging center">
+        			<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">									
+						<a th:if="${page != nowPage}" th:href="@{/notice(page=${page - 1})}" th:text="${page}"></a>
+						<strong th:if="${page == nowPage}" th:text="${page}" style="color : green"></strong>
+					</th:block>
+        			
+        			
+        		</div>
+        		<!-- <div class="search_box flex center">
+        			<select>
+        				<option>선택하세요</option>
+        				<option value="title">제목</option>
+        				<option value="content">내용</option>
+        				<option value="all">제목+내용</option>
+        			</select>
+        			<input>
+        			<a>검색</a>
+        		</div> -->
+        	</div>
+        </div>
+    </main>
+</html>

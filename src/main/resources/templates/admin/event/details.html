@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="//www.thymeleaf.org/extras/spring-security"
+	 th:replace="layout/admin-layout :: layout(~{::head}, ~{::main})">
+<head>
+	<link rel="stylesheet" href="/css/admin/goods.css">
+	<!-- include libraries(jQuery, bootstrap) -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	<!-- include summernote css/js -->
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<script src="/js/summernote.js" ></script>
+	<script src="/js/admin/event.js" ></script>
+</head>
+<main class="admin-header">
+	<h1>상품등록</h1>
+	<section id="goods-wrte" >
+		<div class="admin-header-wrap"></div>
+		<h1>상품등록</h1>
+		<div class="wrap">
+			<p>이벤트 게시 페이지</p>
+			<hr>
+			<form id="form-goods" th:action="|/admin/event/${detail.gno}|" method="post">
+				<ul>
+					<li>
+						<label>제목</label>
+						<input type="text" name="name" class="name" th:value="${detail.name}">
+					</li>
+					<li>
+						<label>이벤트 이미지</label>
+						<div class="def-img" >
+							<span>대표이미지</span>
+							<th:block th:each="list:${detail.gie}" th:if="${list.isDef==true}">
+								<div class="img-wrap"  >
+									<label class="pre-img"  th:style="|background-image: url('${list.url}');|">
+										<input type="file" onchange="tempUpload(this)">
+									</label>
+									<input type="hidden" class="bucketKey" name="bucketKey" >
+									<input type="hidden" class="orgName" name="orgName">
+									<input type="hidden" class="newName" name="newName">
+									<input type="hidden" class="def" name="def" value="true">
+									<input type="hidden" class="url" name="url">
+								</div>
+							</th:block>
+							<pre><!-- 
+							 -->권장 크기 : 1000 x 1000 (윈도대상 750 x 1000)
+<!--                         -->대표이미지 기준 1000x1000 이상 이미지를 등록하시면, 이미지 확대 기능이 제공됩니다.
+<!--                         -->쇼핑검색에 노출되지 않는 경우 가이드를 확인해주세요.
+							</pre>
+						</div>
+						<div>
+							<span>추가이미지 한장</span>
+							<div class="add-img flex">
+							<th:block th:each="list:${detail.gie}" th:if="${list.isDef==false}">
+								<div class="img-wrap">
+									<label class="pre-img"  th:style="|background-image: url('${list.url}');|">
+										<input type="file" onchange="tempUpload(this)">
+									</label>
+									<input type="hidden" class="bucketKey" name="bucketKey">
+									<input type="hidden" class="orgName" name="orgName">
+									<input type="hidden" class="newName" name="newName">
+									<input type="hidden" class="def" name="def" value="false">
+									<input type="hidden" class="url" name="url">
+								</div>
+							</th:block>
+							</div>
+							<pre><!--
+							 -->권장 크기 : 1000 x 1000 (윈도대상 750 x 1000)
+<!--                         -->대표이미지 기준 1000x1000 이상 이미지를 등록하시면, 이미지 확대 기능이 제공됩니다.
+<!--                         -->쇼핑검색에 노출되지 않는 경우 가이드를 확인해주세요.
+							</pre>
+						</div>
+					</li>
+					<li>
+						<label>상세설명</label>
+						<textarea id="summernote" name="content" th:field="${detail.content}"></textarea>
+					</li>
+					<li>
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+						<input type="hidden" name = "_method" value = "put"/>
+						<button type="submit">상품수정</button>
+					</li>
+				</ul>
+			</form>
+		</div>
+	</section>
+	<script type="text/javascript">
+	
+		
+	</script>
+</main>	
+</html>

@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+.write-size{
+	width: 1080px;
+}
+
+.write-size .write{
+	width: 900px;
+	margin: 0 auto;
+}
+
+
+#write-form {
+	margin: 30px 0;
+}
+
+#write-form > .wrap > form #title{
+	height: 30px;
+	width: 900px;
+	padding: 2px 8px;
+	margin-bottom: 20px;
+	border-radius: 7px;
+}
+#write-form > .wrap > form #content{
+	height:400px;
+	width: 900px;
+	padding: 2px 8px;
+	border-radius: 7px;
+	
+}
+#write-form > .wrap>form>p:last-of-type{
+	text-align: center;	
+}
+
+#write-form > .wrap>form>p:last-of-type button{
+	padding: 15px 20px;
+	
+}
+#write-form > .wrap button:first-of-type {
+	margin-right: 10px;
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="//www.thymeleaf.org/extras/spring-security"
+	th:replace="layout/common-layout :: commonLayout( ~{::head}, ~{::main} )">
+<head>
+	<link rel="stylesheet" href="/css/cart/store.css">
+</head>
+<main>
+	<h1>카트리스트</h1>
+	<div class="wrap view-size">
+		<h1>가맹점선택</h1>
+		<h2 class="title">가맹점 선택페이지</h2>
+		<div class="wrap form-wrap">
+			<form action="/cart/store" method="post">
+				<select name="store">
+					<option th:each="list:${list}" th:text="${list.status}?${list.name}:${list.name}+' 준비중'" th:disabled="${list.status}?false:true" th:class="${list.status}?open:close"></option>
+				</select>
+				<div>
+					<input type="hidden" name="url" th:value="${url}">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					<button class="store-btn">선택</button>				
+				</div>
+			</form>
+		</div>
+	</div>
+</main>
+</html>

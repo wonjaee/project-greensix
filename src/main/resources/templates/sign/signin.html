@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" 
+	th:replace="layout/common-layout :: commonLayout( ~{::head}, ~{::main} )" >
+    <head>
+    	<link rel="stylesheet" href="/css/commons/signin.css">
+    </head>
+    <main>
+        <h1>메인영역</h1>
+        <div class="login flex center">
+	        <div class="login-left">
+	        	<ul class="">
+	        		<li class="">
+	        			<a href="#">로그인</a>
+	        		</li>
+	        		<li class="">
+	        			<a href="#">아이디찾기</a>
+	        		</li>
+	        		<li class="">
+	        			<a href="#">비밀번호찾기</a>
+	        		</li>	        		
+	        	</ul>
+	        </div>        
+	        <div class="login-right">
+	        	<div>
+	        		<h2>로그인</h2>
+	        	</div>
+	        	<div>
+	        		<p class="welcome">WELCOME</p>
+	        		<p class="sub">그린식스에 오신 것을 환영합니다.</p>
+	        	</div>
+	        	<div class="login-box">
+		        	<form action="/signin" method="POST">
+		        		<ul>
+		        			<li>
+		        				<label>로그인</label>
+		        				<input type="text" name="email" placeholder="이메일 또는 아이디">
+		        			</li>
+		        			<li>
+		        				<label>비밀번호</label>
+		        				<input type="password" name="pass" placeholder="비밀번호">
+		        			</li>
+		        			<li class="login-btn">
+		        				<input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+		        				<button type="submit">로그인</button>
+		        			</li>
+		        		</ul>
+		        	</form>
+	        	</div>	        	
+	        </div>
+        </div>
+    </main>
+</html>

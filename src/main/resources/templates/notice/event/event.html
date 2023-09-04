@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="//www.thymeleaf.org/extras/spring-security"
+	 th:replace="layout/common-layout :: commonLayout( ~{::head}, ~{::main} )">
+    <head>
+        <link rel="stylesheet" href="/css/event/event.css">
+        <script src="/js/notice/event.js"></script>
+    </head>
+    <main>
+        <section class="view-size flex" >
+	        
+	        <div style="margin:0 auto 100px;">
+	        <div class="content-right" >
+		        <h2>Event</h2>
+		        <form >
+		        	<!-- <div class="event-select flex">
+		        		<select>
+	        				<option value selected="selected">전체</option>
+	        				<option value="01">온라인 이벤트</option>
+	        				<option value="02">매장 이벤트</option>
+	        				<option value="03">판촉물 이벤트</option>
+		        		</select>
+		        	</div> -->
+		        	<div class="event_list_wr"  th:each="dto:${list}">
+		        		<div class="event_listBox">
+		        			<a th:href="${'/event/'+dto.no}">
+		        				<img width="700" height="141"  alt="#" th:src="${dto.url}">
+		        			</a>
+		        			<dl class="event_list flex ">
+		        				<dt>
+		        					<a th:href="${'/event/'+dto.no}" th:text="${dto.name}">온라인 이벤트 어쩌구저쩌구 샬라샬라</a>
+		        				</dt>
+		        				<dd>
+		        					<span>공지 게시날짜</span>
+		        					<span class="day" th:text="${dto.date}">2023-07-19 ~ 2023-08-18</span>
+		        					
+		        				</dd>
+		        			</dl>
+		        		</div>
+		        	</div>
+		        </form>
+		        <div id="main-footer" style="text-align: center;">
+					<div id="page" style="margin: 15px 0 50px 0;">
+						<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+							
+							<a th:if="${page != nowPage}" th:href="@{/event(page=${page - 1}, searchKeyword=${param.searchKeyword})}" th:text="${page}"></a>
+							<strong th:if="${page == nowPage}" th:text="${page}" style="color : green"></strong>
+						</th:block>
+					</div>
+					
+				</div>
+		        </div>
+	        </div>
+        </section>
+    </main>
+</html>

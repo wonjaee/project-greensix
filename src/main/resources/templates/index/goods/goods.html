@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org">
+		
+		<div class="wrap">
+			<ul class="wrap grid-container"  >
+				<li th:each="dto:${list}">
+					<a th:href="|/menu/${dto.cno}|">
+						<img class="index-img" alt="#" th:src="${dto.url}" >
+					</a>
+					<p class="hot-name" th:text="${dto.name}"></p>
+					<div class="sale-cont flex center" th:if="${dto.onSale}" >
+						<span class="sale-dis"  th:with="rate=${dto.sale.discount *100 / dto.price}">
+							<span th:text="${#numbers.formatInteger(rate,1,'POINT')}">할인율</span><i>%</i>
+						</span>
+						<span th:with="dis=${dto.price-dto.sale.discount}">
+							<span class="sale-price" th:text="${#numbers.formatInteger(dis,3,'COMMA')}">할인후</span><i class="sale-won">원</i>
+						</span>
+						<span class="sale-or-price" style="text-decoration: line-through;">
+							<span th:text="${#numbers.formatInteger(dto.price,3,'COMMA')}">할인전</span><i>원</i>
+						</span>
+					</div>
+					<div class="sale-cont flex center" th:unless="${dto.onSale}" >
+						<span class="sale-price" >
+							<span th:text="${#numbers.formatInteger(dto.price,3,'COMMA')}">판매가</span><i>원</i>
+						</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+</html>

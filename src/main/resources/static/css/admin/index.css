@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.admin-header{
+	width: calc(100% - 250px);
+	margin: 0;
+	padding: 0;
+}
+.admin-header{
+	background-color: #2ec3530f;
+}
+.admin-header .admin-header-wrap{
+	background-color: #88af62;
+	height: 50px;
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org">
+	<body>
+		<section class="flex wait section-size">
+			<th:block th:each="dto:${order}">
+				<div  class="time-info">
+					<p th:text="${#temporals.format(dto.orderDate, 'MM/dd')}"></p>
+					<p th:text="${#temporals.format(dto.orderDate, 'HH:mm')}"></p>
+					
+				</div>
+				<div  class="adress-info">
+					<p th:text="${dto.name}">고객 이름</p>
+					<div th:each="item:${dto.orderItem}" class="flex">
+						<p th:text="${item.name}"></p>
+						<p th:text="${item.count}"></p>
+					</div>
+					
+				</div>
+				<div class="order-btn">
+					<button type="button" onclick="orderBtnClicked()">주문 접수</button>
+					<button>주문 취소</button>
+				</div>
+			</th:block>
+		</section>
+	</body>
+</html>

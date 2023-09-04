@@ -1,0 +1,59 @@
+@charset "UTF-8";
+.admin-header{
+	width: calc(100% - 250px);
+	margin: 0;
+	padding: 0;
+}
+.admin-header{
+	background-color: #2ec3530f;
+}
+.admin-header .admin-header-wrap{
+	background-color: #88af62;
+	height: 50px;
+}
+.admin-header > p{
+	padding-left: 50px;
+	margin-top: 50px;
+	font-size: 20px;
+}
+.admin-header .wrap{
+	padding-left: 50px;
+}
+
+.admin-header .wrap button{
+	display: inline-block;
+    height: 23px;
+    padding: 4px 19px 0;
+    font-size: 13px;
+    color: #303030;
+    border: 1px solid #aeaeae;
+    background-color: #80808040;
+}
+/* //////////////////category-list-page////////////////////// */
+.cateDelHide{
+	display:none;
+}
+.open{
+	display: inline-block;
+}
+.hide{
+	display: none;
+}
+.cate-div{
+	margin: 1em;
+	padding:20px 0 20px 0;
+}
+.cate-div> *{
+	line-height:30px;
+	margin: 20px;
+}
+.cate-wrap{
+	width:700px;
+
+}
+.vno{
+	width:100px;
+}
+.sublist{
+	margin-left: 50px;
+}

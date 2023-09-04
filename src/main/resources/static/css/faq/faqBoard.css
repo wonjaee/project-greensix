@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+#faq-list .list-area .title .division{
+	width: 50px;;
+	}
+
+#faq-list .list-area .title .quest{
+	width: calc(1080px - 150px);
+	}

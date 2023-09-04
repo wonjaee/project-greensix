@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<section id="calendar-form">
+   	<h1>달력</h1>
+   	<div class="wrap">
+   		
+   		<div class="calendar-wrap flex between">
+   			<div class="icon-wrap">
+    			<a class="icon icon-prev" onclick="dateProcess(this)">
+     			<i></i>
+     			<i></i>
+    			</a>
+		<a class="icon icon-next" onclick="dateProcess(this)">
+			<i></i>
+     			<i></i>
+		</a>
+    		</div>
+    		<!-- /////////////////////////////////////////////////// -->
+     	<ul class="calendar first">
+     		<li class="calendar-title flex center">
+     			<p>2023년 7월</p>
+     			<div class="flex col-center">
+     				<label class="month-all" onclick="pickTargetMonthAll(this)">
+     					<input type="checkbox"  value="202308"  />
+     					<span>월전체</span>
+     				</label>
+     			</div>
+     		</li>
+     		<li class="calendar-area">
+     			<div class="week flex">
+     				<div class="sun">일</div>
+     				<div>월</div>
+     				<div>화</div>
+     				<div>수</div>
+     				<div>목</div>
+     				<div>금</div>
+     				<div class="sat">토</div>
+     			</div>
+     			<ol class="calendar-day">
+     				<li class='day flex'>
+     					<div class="sun">1</div>
+      				<div>2</div>
+      				<div>3</div>
+      				<div>4</div>
+      				<div>5</div>
+      				<div>6</div>
+      				<div class="sat">7</div>
+     				</li>
+     			</ol>
+     		</li>
+     	</ul>
+     	<!-- /////////////////////////////////////// -->
+       <ul class="calendar next">
+           <li class="calendar-title flex center">
+               <p>2023년 8월</p>
+               <div class="flex col-center">
+                   <label class="month-all" onclick="pickTargetMonthAll(this)">
+                   	<input type="checkbox" value="202308"  />
+                   	<span>월전체</span>
+                   </label>
+               </div>
+           </li>
+           <li class="calendar-area">
+               <div class="week flex">
+                   <div class="sun">일</div>
+                   <div>월</div>
+                   <div>화</div>
+                   <div>수</div>
+                   <div>목</div>
+                   <div>금</div>
+                   <div class="sat">토</div>
+               </div>
+               <ol class="calendar-day">
+               	<li class='day flex'>
+     					<div class="sun">1</div>
+      				<div>2</div>
+      				<div>3</div>
+      				<div>4</div>
+      				<div>5</div>
+      				<div>6</div>
+      				<div class="sat">7</div>
+     				</li>
+               </ol>
+           </li>
+       </ul>
+      </div>
+    	<!-- ///////////////////////////////////////////////// -->
+    	<div class="select-info flex between">
+    		<div class="date-wrap">
+     		<dl>
+     			<dt>시작일</dt>
+     			<dd class="date start-date" >-------</dd>
+     		</dl>
+     	</div>	
+    		<div class="date-wrap">
+     		<dl>
+     			<dt>종료일</dt>
+     			<dd class="date end-date">-------</dd>
+     		</dl>
+    		</div>
+    		<div class="btn-wrap flex col-center">
+    			<span>
+    				<button type="button" class="today reset btn-cal"  onclick="dateProcess(this)">이번달</button>
+     				<button type="button" class="reset btn-cal" onclick="clearPickInfo()">다시선택</button>
+     				<button type="button" class="btn-cal" onclick="calendarSelected()">선택 완료</button>
+    			</span>
+    		</div>
+    	</div>
+   	</div>
+</section>

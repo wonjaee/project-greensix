@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="//www.thymeleaf.org/extras/spring-security"
+	 th:replace="layout/admin-layout :: layout(~{::head}, ~{::main})">
+	<head>
+		<link rel="stylesheet" href="/css/admin/category.css">
+		<script type="text/javascript">
+			function nextCategory(targetTag){
+				var cateName=$(targetTag).val().trim();
+				if(cateName=="")return;
+				$(targetTag).parent().next().show();
+			}
+		</script>
+		<style type="text/css">
+			.cate:not(:first-child) {
+				display: none;
+			}
+		</style>
+	</head>
+    <main class="admin-header">
+    	<div class="admin-header-wrap"></div>
+    	<h1>카테고리 등록</h1>
+    	<p>카테고리 등록</p>
+    	<div class="wrap">
+    		<form action="/admin/category" method="post">
+    			<ol class="flex">
+    				<li class="flex cate cate-1">
+    					<input type="text" placeholder="1차 카테고리" name="name" onblur="nextCategory(this)">
+    				</li>
+    				<li class="flex cate cate-2">
+    					<input type="text" placeholder="2차 카테고리" name="name">
+    				</li>
+     			</ol>
+    			<div >
+    				<input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    				<button >등록</button>
+    			</div>
+    			
+    		</form>
+    	</div>
+    </main>
+</html>

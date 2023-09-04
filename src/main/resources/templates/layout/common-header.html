@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<header id="header">
+	<h1>헤더섹션</h1>
+	<div class="wrap">
+		<section id="user-area">
+			<h1>유저영역</h1>
+			<div class="wrap view-size">
+				<ul class="flex right">
+					<li sec:authorize="hasRole('ROLE_ADMIN')">
+						<a href="/admin">관리자페이지</a>
+					</li>
+					<li sec:authorize="hasRole('ROLE_STORE')">
+						<a href="/franchisee/order">가맹점페이지</a>
+					</li>
+					<li sec:authorize="isAnonymous()">
+						<a href="/signin">로그인</a>
+					</li>
+					<li sec:authorize="isAnonymous()">
+						<a href="/signup">회원가입</a>
+					</li>
+					<li sec:authorize="isAuthenticated()" class="flex col-center info">
+						<span class="user-id" sec:authentication="name">회원정보-아이디</span>
+						<form action="/signout" method="post">
+							<input type="hidden" th:if="${_csrf}"
+								th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+							<button type="submit" class="btn-style">로그아웃</button>
+						</form>
+					</li>
+					<li><a href="/cart">장바구니</a></li>
+					<li><a href="/common/cscenter">고객센터</a></li>
+				</ul>
+			</div>
+		</section>
+		<section id="logo-top" class="view-size">
+			<h1>로고영역</h1>
+			<div class="wrap">
+				<a href="/" class="flex"> <span class="logo-style"> GREEN <img alt=""
+						src="/images/icon/greenSix-logo3.svg" width="56px;" >
+				</span>
+				<span  class="logo-style" style="color: #cc3399">IX</span>
+				</a>
+			</div>
+		</section>
+		<section id="menu-area">
+			<h1>메뉴</h1>
+			<div class="wrap">
+				<nav id="gnb" class="flex view-size">
+					<h1>메뉴영역</h1>
+					<div class="wrap">
+						<ul class="flex">
+							<li value="0" onmouseenter="showSubMenu()" onmouseleave="hideSubMenu()">
+								<a href="/menu/0">MENU</a>
+								<div class="menu-list" >
+								
+								</div>
+								<div class="sub-list">
+		
+								</div>
+							</li>
+							<li>
+								<a href="/notice">NEWS</a>
+								<div>
+									<div>
+										<a href="/notice">공지사항</a>
+									</div>
+									<div>
+										<a href="/event">이벤트</a>
+									</div>
+								</div>
+							</li>
+							<li>
+								<a href="/map">STORE</a>
+								<div>
+									<div>
+										<a href="/map">매장검색</a>
+									</div>
+									<div>
+										<a href="#">가맹문의</a>
+									</div>
+								</div>
+							</li>
+							<li>
+								<a href="/common/cscenter">CUSTOMER</a>
+								<div>
+									<div>
+										<a href="/common/cscenter">FAQ</a>
+									</div>
+									<div>
+										<a href="/common/faq/faqBoard">문의하기</a>
+									</div>
+								</div>
+							</li>
+							<li>
+								<a href="#">TEAM</a>
+								<div>
+									<div>
+										<a href="#">팀소개</a>
+									</div>
+								</div>
+							</li>
+							<li>
+								<a href="#">INFO</a>
+								<div>
+									<div>
+										<a href="#">프로젝트소개</a>
+									</div>
+									<div>
+										<a href="#">기능소개</a>
+									</div>
+									<div>
+										<a href="#">개발관련내용</a>
+									</div>
+								</div>
+							</li>
+						</ul>
+						
+						</div>
+						</nav>
+					</div>
+				</section>
+			</div>
+<!-- 		<section id="search-top">
+				<h1>검색</h1>
+				<div class="wrap">
+					<form>
+						<input type="search" placeholder="검색">
+						<button type="submit"></button>
+					</form>
+				</div>
+			</section> -->
+</header>
+</html>

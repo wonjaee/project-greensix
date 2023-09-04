@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="//www.thymeleaf.org/extras/spring-security">
+	<section class="cart">
+	  <h1>장바구니 리스트</h1>
+	  <div class="cart-wrap">
+	  	<p class="tit">장바구니</p>
+			<ul th:each="dto, i : ${cartItems}" th:with="tf=${tf}">
+		  	<li >
+		  		<span class="order-item" th:text="${dto.goods.name}">상품 명</span>
+		  	</li>
+		  	<li >
+				<img alt="#" th:src="${dto.goods.gie[0].url}" height="40px;">
+		  		<button class="cart-lBtn" onclick="deleteCount(this)">-</button>
+		  		<div th:text="${dto.count}" class="num">수량</div>
+		  		<button class="cart-RBtn" onclick="addCart(this)">+</button>
+		  		<div class="cart-price ">
+			  		<span class="sales-price" th:text="${tf[i.index]}==true?${#numbers.formatInteger((dto.goods.price-dto.goods.sale.discount) * dto.count,0,'COMMA')}:${#numbers.formatInteger(dto.goods.price* dto.count,0,'COMMA')}"></span>
+					<span>원</span>
+					<span class="or-price" th:text="${tf[i.index]}==true?${#numbers.formatInteger(dto.goods.price* dto.count,0,'COMMA')}:''"></span>
+		  		</div>
+		  		<button class="del-Btn" onclick="deleteItem(this)">삭제</button>
+		  		<input class="gno" type="hidden" th:value="${dto.goods.no}">
+		  		<span style="display: none;" class="email" sec:authentication="name">회원정보-아이디</span>
+		  	</li>
+		  </ul>
+		  <ul >
+			 <li th:if="${totalSalePrice}!=0">
+		  		<span>총 할인가격 : </span>
+		  		<span class="total-sales-price"  th:text="${#numbers.formatInteger(totalSalePrice,0,'COMMA')}" >총 할인가격</span><span> 원</span>
+		  	</li>
+		  	<li>
+		  		<span>총 주문가격 : </span>
+		  		<span class="total-price" th:text="${#numbers.formatInteger(totalPrice,0,'COMMA')}" >총 주문가격</span><span> 원</span>
+		  	</li>
+		  </ul>
+		  <ul>
+		  	<li style="display: flex;justify-content: space-around;">
+		  		<button><a th:href="|/order/barket/${#authentication.principal.username}|">결제</a></button>
+		  		<input type="hidden" th:value="${#authentication.principal.username}">
+		  		<button onclick="deleteAll(this)">비우기</button>
+		  	</li>
+		  </ul>
+		  </div> 
+	</section>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org">
+	
+<div class="flex title">
+	<span class="division flex center" >구분</span>
+	<span class="quest flex center" >질문</span>
+</div>
+<ul>
+	<li th:each="dto:${list}">
+		<div class="flex">
+			<span class="division  flex center" th:text="${dto.division.koDiv}"></span>
+			<span class="question text-icon flex" th:text="${dto.question}"></span>
+		</div>
+		<div class="answer text-icon" th:text="${dto.answer}"></div>
+	</li>
+</ul>
+<div class="flex center pagging" th:unless="${#lists.isEmpty(list)}"
+	th:with="diviNo=${list.get(0).division.no}">
+	<div th:if="${pd.from gt 1}">
+		<a th:onclick="|faqList(${diviNo}, ${pd.from-1})|">&lt;</a>
+	</div>
+	<div>
+		<span th:each="page : ${#numbers.sequence(pd.from,pd.to)}"> <a
+			th:text="${page}" th:onclick="|faqList(${diviNo}, ${page})|">페이지번호</a>
+		</span>
+	</div>
+	<div th:if="${pd.to lt pd.tot}">
+		<a th:onclick="|faqList(${diviNo}, ${pd.to+1})|">&gt;</a>
+	</div>
+</div>
+</html>

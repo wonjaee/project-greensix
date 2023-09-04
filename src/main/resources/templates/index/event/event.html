@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+</head>
+<body>
+	<div class="table">
+		<ul class="notice-table">
+			<li class="flex notice-li" th:each="dto:${event}">
+				<div class="wrap">
+					<a th:text="${dto.name}" th:href="${'/event/'+dto.no}">제목</a>
+				</div>
+				
+				<div class="wrap" th:text="${dto.createdDate}">
+					
+				</div >
+                
+ 			</li>
+		</ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="//www.thymeleaf.org/extras/spring-security"
+	th:replace="layout/common-layout :: commonLayout( ~{::head}, ~{::main} )">
+<head>
+	<!-- iamport.payment.js -->
+	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+	<script src="/js/order/order.js"></script>
+	<link rel="stylesheet" href="/css/cart/cart.css">
+</head>
+<main>
+	<h1>장바구니</h1>
+	<div>
+		<section id="cart-main">
+			<div class="cart-wrap">
+			<h2 class="cart-tit">장바구니</h2>
+			<a href="/cart/history">주문 내역</a>
+			<div class="cart-area center">
+				<ul class="cart-row flex ">
+					<li>사진</li>
+					<li>상품명</li>
+					<li>가격</li>
+					<li>할인가</li>
+					<li>판매가</li>
+					<li>개수</li>
+					<li>소계</li>				
+					<li>삭제</li>	
+				</ul>
+				<ol class="cart-item flex" th:each="ci:${cart.cartItems}">
+					<li>
+						<img th:src="${ci.goods.gie[0].url}" height="50px;">
+					</li>
+					<li class="itemName" th:text="${ci.goods.name}">상품명</li>
+					<li >
+						<span th:text="${#numbers.formatInteger(ci.goods.price,3,'COMMA')}"></span>
+						<span>원</span>
+					</li>
+					<li>
+						<span th:if="${ci.goods.onSale}" th:text="${#numbers.formatInteger(ci.goods.discount,3,'COMMA')}"></span>
+						<span th:unless="${ci.goods.onSale}" th:text="0">할인가</span>
+						<span>원</span>
+					</li>
+					<li >
+						<span th:text="${#numbers.formatInteger((ci.goods.price-ci.goods.discount),3,'COMMA')}"></span>
+						<span>원</span>
+					</li>
+					<li class="between">
+						<button class="cart-lBtn" onclick="deleteCount(this)">-</button>
+						<span th:text="${ci.count}"></span>
+						<button class="cart-RBtn" onclick="addCount(this)">+</button>
+						<input class="gno" type="hidden" th:value="${ci.goods.gno}">
+					</li>
+					<li >
+						<span class="itemPrice" th:text="${#numbers.formatInteger(((ci.goods.price-ci.goods.discount)*ci.count),3,'COMMA')}">소계</span>
+						<span>원</span>
+					</li>
+					<li>
+						<input class="gno" type="hidden" th:value="${ci.goods.gno}">
+						<button class="del-Btn" onclick="deleteItem(this)">삭제</button>
+					</li>					
+				</ol>
+				<ol class="flex" th:if="${#lists.isEmpty(cart.cartItems)}">
+					
+					<li>장바구니가 비어있습니다.</li>					
+				</ol>
+			</div>
+			<div>
+				<span>총금액: </span>
+				<span id="totalPrice"></span>
+				<span> 원</span>
+			</div>
+			<div class="center flex">
+				<div class="cart-footer flex center">
+					<input id="userName" type="hidden" th:value="${user.name}">
+					<input id="userEmail" type="hidden" th:value="${user.email}">
+					<button type="button" id="btn-payment" >결제하기</button>
+					<a href="/menu/0"><button type="button" id="btn-cancel" >취소하기</button></a>
+				</div>
+			</div>
+			</div>
+		</section>
+		
+	</div>
+<script type="text/javascript">
+	$(function(){
+		
+	totalPrice();
+	})
+</script>
+</main>
+</html>

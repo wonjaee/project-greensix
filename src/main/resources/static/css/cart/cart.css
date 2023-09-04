@@ -1,0 +1,120 @@
+@charset "UTF-8";
+
+#cart-main {
+    padding-top: 46px;
+}
+
+.cart-wrap {
+    width: 1080px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 40px;
+    margin: 16px 0 20px 0;
+    border-bottom: 1px solid;
+    padding-bottom: 30px;
+}
+
+.cart-tit {
+    width: 1080px;
+    margin: 0 auto;
+}
+
+/* 카트 영역 스타일 */
+.cart-area {
+  margin: 40px auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 1080px;
+  box-sizing: border-box;
+}
+
+/* 카트 항목 리스트 스타일 */
+.cart-area .flex {
+  display: flex;
+  list-style: none;
+  padding: 0; /* 추가된 부분 */
+  margin: 0; /* 추가된 부분 */
+}
+
+/* 카트 항목 리스트의 각 항목의 스타일 */
+.cart-area .flex li {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-right: 1px solid #ccc;
+  box-sizing: border-box; /* 추가된 부분 */
+}
+
+/* 카트 항목 리스트의 첫 번째 항목인 체크박스의 스타일 */
+.cart-area .flex li:first-child {
+  flex: 1;
+}
+
+.cart-area .flex li:nth-of-type(2) {
+  flex: 3;
+}
+
+/* 카트 항목 리스트의 마지막 항목인 소계의 스타일 */
+.cart-area .flex li:last-child {
+  border-right: none;
+}
+
+/* 카트 항목 리스트의 개수 조작 버튼의 스타일 */
+.cart-lBtn,
+.cart-RBtn {
+  border: none;
+  background-color: #ccc;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+/* 비어있는 카트 영역에 대한 스타일 */
+.cart-area .flex li {
+  text-align: left;
+}
+
+
+/* 메세지 영역의 스타일 */
+.cart-area .cart-row li {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #666;
+}
+
+/* 메세지 영역의 스타일 */
+.cart-area .cart-item li {
+  font-weight: bold;
+  font-size: 16px;
+  color: #666;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.cart-area .cart-item .between{
+	justify-content: space-between;
+}
+
+카트 항목 리스트의 개수 조작 버튼의 스타일
+.cart-lBtn, .cart-RBtn, .del-Btn {
+    border: none;
+    background-color: #ccc;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+#cart-main .cart-footer{
+	width: 250px;
+	justify-content: space-around;
+}
+
+#cart-main .cart-footer button{
+	background-color: #ccc;
+    color: #000;
+    cursor: pointer;
+    padding: 5px 10px;
+}

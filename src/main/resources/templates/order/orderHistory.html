@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="//www.thymeleaf.org/extras/spring-security"
+	th:replace="layout/common-layout :: commonLayout( ~{::head}, ~{::main} )">
+<head>
+	<!-- iamport.payment.js -->
+	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+	<script src="/js/order/order.js"></script>
+	<link rel="stylesheet" href="/css/cart/cart.css">
+</head>
+<main>
+	<h1>장바구니</h1>
+	<div>
+		<section id="cart-main">
+			<div class="cart-wrap">
+			<h2 class="cart-tit">주문 내역</h2>
+			<div class="cart-area center">
+				<!-- <ul class="cart-row flex ">
+					<li>주문번호</li>
+					<li>상품명</li>
+					<li>가격</li>
+					<li>할인가</li>
+					<li>판매가</li>
+					<li>개수</li>
+					<li>소계</li>				
+					<li>삭제</li>	
+				</ul>
+				<ol class="cart-row flex " th:each="oi:${list}">
+					<li th:text="${oi.uid}">주문번호</li>
+					<li th:each="ui:${oi.orderItems[0]}">
+						<span th:text="${ui.goods[0].name}"></span>
+						
+					</li>
+					
+					<li>가격</li>
+					<li>할인가</li>
+					<li>판매가</li>
+					<li>개수</li>
+					<li>소계</li>				
+					<li>삭제</li>	
+				</ol> -->
+			</div>
+			</div>
+		</section>
+		
+	</div>
+
+</main>
+</html>

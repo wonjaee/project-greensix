@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" 
+	th:replace="layout/common-layout :: commonLayout( ~{::head}, ~{::main} )" >
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script src="/webjars/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=92df0645f503562ca16d1ec752e9a1f3&libraries=services,clusterer,drawing"></script>
+		<script src="/js/map/map.js"></script>
+		<link rel="stylesheet" href="/css/map/map.css">
+		
+	</head>
+	<body>
+		<main>
+			<div class="wrap"  style="width: 1080px; margin: 0 auto;padding-top:46px;">
+				
+				<div style="width:1080px;">
+					<div>
+						<h2>매장검색</h2>
+						<span style="color: #88af62;">store > 매장검색</span>					
+					</div>
+					<div style="display: flex" class="map-wrap">
+						<div id="map" style="width:100%;height:400px;"></div>
+						
+					</div>
+					<div>
+						
+						<form th:action="@{/map}" method="get" id="search">
+							<input type="text" name="searchKeyword" placeholder="지점을 입력해주세요">
+							<button type="submit" style="background-image: url('/images/map/magnifying-glass-solid (1).svg')"></button>
+						</form>
+						<table>
+						<thead>
+							<tr>
+								<td>가맹점</td>
+								<td>전화번호</td>
+								<td>팩스번호</td>
+								<td>주소</td>
+							</tr>
+						</thead>
+							<tbody id="show">
+								<tr th:if="${#lists.isEmpty(list)}">
+									<th colspan="4">게시글이 존재하지 않습니다.</th>
+								</tr>
+								<!-- getter 필요함 -->
+								<tr th:each="board:${list}">
+									<td >
+										<a th:text="${board.name}" th:href="@{/store/{no} (no=${board.no})}">매장이름</a>
+									</td>
+									<td th:text="${board.callNumber}">전화번호</td>
+									<td th:text="${board.faxNumber}">팩스번호</td>
+									<td  th:text="${board.address}">상세주소</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<div id="main-footer" style="text-align: center;">
+							<div id="page" style="margin: 15px 0 50px 0;">
+								<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+									
+									<a th:if="${page != nowPage}" th:href="@{/map(page=${page - 1}, searchKeyword=${param.searchKeyword})}" th:text="${page}"></a>
+									<strong th:if="${page == nowPage}" th:text="${page}" style="color : green"></strong>
+								</th:block>
+							</div>
+							<th:block th:each="board:${list}">
+								<input class="address" type="hidden" th:value="${board.address}">
+								<input class="name" type="hidden" th:value="${board.name}">
+							</th:block>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		
+	</body>
+</html>

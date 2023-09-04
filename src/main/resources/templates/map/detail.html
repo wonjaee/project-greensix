@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" 
+	th:replace="layout/common-layout :: commonLayout( ~{::head}, ~{::main} )" >
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script src="/webjars/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=92df0645f503562ca16d1ec752e9a1f3&libraries=services,clusterer,drawing"></script>
+		<script src="/js/map/storeDetail.js"></script>
+		<link rel="stylesheet" href="/css/map/map.css">
+		
+	</head>
+	<body>
+	
+		<main>
+			<div class="wrap"  style="width: 1080px; margin: 0 auto;padding-top:46px;">
+				
+				<div style="width:1080px; position: relative;">
+					<div >
+						<h2>매장검색</h2>
+						<span th:text="|store > 매장검색 > ${stores.name} 지점|" style="color: #88af62;" > </span>
+					</div>
+					<div style="display: flex" class="map-wrap">
+						<div id="map" style="width:100%;height:400px;"></div>
+					</div>
+					<div class="store-info"  >
+						<ul class="detail">
+							<li >
+								<span style="font-size: 24px;" th:text="|${stores.name} 지점|"></span>
+							</li>
+							<li >
+								<strong>주소</strong>
+								<span th:text="${stores.address}">주소</span>
+							</li>
+							<li >
+								<strong>전화번호</strong>
+								<span th:text="${stores.callNumber}">전화번호</span>
+							</li>
+							<li >
+								<strong>팩스번호</strong>
+								<span th:text="${stores.faxNumber}">팩스번호</span>
+							</li>
+							<li >
+								<strong>영업시간</strong>
+								<span >am 7 ~ pm 9</span>
+							</li>
+							
+						</ul>
+					
+						<button class="map-btn" id="map-btn" onclick="loadSearch()" type="button">빠른길찾기 바로가기</button>
+						
+					</div>
+				</div>
+			</div>
+		</main>
+		
+	</body>
+</html>

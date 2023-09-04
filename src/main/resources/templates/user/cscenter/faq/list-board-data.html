@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div sec:authorize="isAuthenticated()" class="flex right">
+	<a href="/faq/board/write">글쓰기</a>
+</div>
+<div sec:authorize="isAnonymous()" class="flex right">
+	<a onclick=clickEvent();>글쓰기</a>
+</div>
+<div class="flex title">
+	<span class="b-division flex center" >번호</span>
+	<span class="b-quest flex center" >질문</span>
+	<span class="b-writer flex center" >작성자</span>
+</div>
+<ul>
+	<li th:each="dto:${list}">
+		<div class="flex between">
+			<span class="bno  flex center" th:text="${dto.no}"></span>
+			<a th:href="|/faq/board/detail/${dto.no}|" class="b-title flex" th:text="${dto.title}"></a>
+			<span class="writer flex" th:text="${dto.creator.email}"></span>
+		</div>
+	</li>
+</ul>
+<div class="flex center pagging" th:unless="${#lists.isEmpty(list)}"
+	th:with="diviNo=${list.get(0).no}">
+	<div th:if="${pd.from gt 1}">
+		<a th:onclick="|faqList(${diviNo}, ${pd.from-1})|">&lt;</a>
+	</div>
+	<div>
+		<span th:each="page : ${#numbers.sequence(pd.from,pd.to)}"> <a
+			th:text="${page}" th:onclick="|faqList(${diviNo}, ${page})|">페이지번호</a>
+		</span>
+	</div>
+	<div th:if="${pd.to lt pd.tot}">
+		<a th:onclick="|faqList(${diviNo}, ${pd.to+1})|">&gt;</a>
+	</div>
+</div>
+
+<script>
+function clickEvent(){
+	
+	var userInput = confirm("로그인 후 사용 하실수 있습니다.\n로그인페이지로 이동 하시겠습니까?");
+
+	  if (userInput) {
+	    // 사용자가 "확인"을 클릭한 경우, 로그인 화면으로 이동
+	    window.location.href = "/login";
+	  } else {
+	    // 사용자가 "취소"를 클릭한 경우, 화면 이동하지 않음
+	    // 다른 동작 수행 가능
+	  }
+}
+
+
+</script>
+
+</html>

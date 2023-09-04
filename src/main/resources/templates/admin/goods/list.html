@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="//www.thymeleaf.org/extras/spring-security"
+	 th:replace="layout/admin-layout :: layout(~{::head}, ~{::main})">
+	 <head>
+	 
+	 </head>
+	 <main>
+		<section>
+			<h1>상품등록</h1>
+			<p class="tit">상품조회 및 수정</p>
+				<hr>
+			<div class="wrap grid-container">
+				<ul class="wrap" th:each="dto:${list}">
+					<li class="list">
+						<p th:text="${dto.name}"></p>
+						<a th:href="|/admin/goods/${dto.no}|"><img alt="#" th:src="${dto.url}" height="100px"></a>
+						<p>
+							<div class="list-goods" th:if="${dto.onSale}">
+								<div class="sale-price">
+									<span th:text="${#numbers.formatInteger(dto.price-dto.sale.discount,3,'COMMA')}"></span>
+									<span>원</span>
+								</div>
+								<div class="or-price">
+									<span th:text="${#numbers.formatInteger(dto.price,3,'COMMA')}"></span>
+									<span >원</span>
+								</div>
+							</div>
+							<div  class="sale-price list-goods" th:unless="${dto.onSale}">
+								<span th:text="${#numbers.formatInteger(dto.price,3,'COMMA')}"></span>
+								<span>원</span>
+							</div>
+							
+						</p>
+						<div class="flex good-btn">
+							<a th:href="|/admin/goods/${dto.no}|"><button>수정</button></a>
+							<form th:action="|/admin/goods/${dto.no}|" method="post">
+								<input type="hidden" name="_method" value="delete"/>
+								<input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+								<button>삭제</button>
+							</form>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</section>
+	</main>
+</html>

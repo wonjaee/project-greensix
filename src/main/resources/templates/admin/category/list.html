@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org">
+	<th:block th:each="dto:${list}">
+		<div th:value="${dto.no}" th:if="${dto.parent}">	
+			<a th:href="|/menu/${dto.no}|" th:text="${dto.name}"></a>
+		</div>
+		<div th:value="${dto.no}" th:unless="${dto.parent}" onmouseenter="categoryMenu(this)">	
+			<a th:href="|/menu/${dto.no}|" th:text="${dto.name}"></a>
+		</div>
+	</th:block>
+</html>

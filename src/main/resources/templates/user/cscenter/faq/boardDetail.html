@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="//www.thymeleaf.org/extras/spring-security"
+	th:replace="layout/common-layout :: commonLayout( ~{::head}, ~{::main} )">
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+	<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+	<link rel="stylesheet" href="/css/faq/faqBoardDetail.css">
+	<script type="text/javascript">
+		$(function(){
+			$("#comment-write").submit(function(e){e.preventDefault();})
+			$("#btn-reply").click(btnReplyClicked);
+			$(".back").click(back);
+			commentList();
+		});
+		function clickEvent(){
+        	alert('로그인 후 사용 하실수 있습니다.');
+        }
+		function commentList(){
+			$.ajax({
+				url:`/faq/board/[[${board.no}]]/comment`,
+				type:"get",
+				success:function(result){
+					$("#comment-list").html(result);
+				}
+			});
+		}
+		function btnReplyClicked(){
+			
+			var paramData=$("#comment-write").serialize();
+			
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			
+			var comContent = $('#comContent').val();
+			
+			if (comContent == "" || comContent == null) {
+				alert("내용을 입력해주세요");
+		        return false;
+		    }
+			
+			$.ajax({
+				beforeSend:function(xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+				url:`/faq/board/[[${board.no}]]/comment`,
+				type:"POST",
+				data: paramData,
+				success:function(result){
+					$("#comContent").val('');
+					commentList();
+				}
+			});
+		
+		}
+		
+		function back(){
+			history.back();
+		}
+	</script>
+</head>
+<main>
+	<div class="wrap view-size detail-size">
+		<div id="detail-main">
+			<section id="detail">
+				<h1>상세정보</h1>
+				
+				<div>
+					<ul id="basic" >
+						<li class="flex">
+							<p>글번호</p>
+							<div th:text="${board.no}">번호</div>
+						</li>
+						<li class="flex">
+							<p>작성일</p>
+							<div>
+								<span th:text="${board.updatedDate.toLocalDate()}">날짜</span>
+							</div>	
+						</li >
+						<li class="flex">
+							<p>제목</p>
+							<div th:text="${board.title}">제목</div>
+						</li>
+						<li class="flex">
+							<p>작성자</p>
+							<div th:text="${board.creator.email}">작성자</div>
+						</li>
+						<li class="flex basic-content">
+							<div colspan= "2" th:utext="${board.content}">내용</div>
+						</li>
+					</ul>
+					<!--목록 /수정 /삭제  -->
+					<div class="flex between changeState">
+						<div class="list">
+							<button type="button" class="back">목록</button>
+						</div>
+						<div sec:authorize="isAuthenticated()">
+							<th:block th:if="${#authentication.getPrincipal().getUsername() == board.creator.email}">
+								<div id="update">
+								<button>
+									<a th:href="@{/faq/board/modify/{no}(no=${board.no})}">수정</a>
+								</button>
+								<button>
+									<a th:href="@{/faq/board/delete/{no}(no=${board.no})}">글삭제</a>
+								</button>
+								</div>
+							</th:block>
+						</div>
+					</div>
+					<!-- 댓글 작성 부분 -->
+					<form id="comment-write" th:action="@{/faq/board/{no}/comment (no=${board.no})}" method="post">
+						<div class="flex" sec:authorize="isAuthenticated()">
+							<input type="text" id="comContent" name="commentContent" placeholder="댓글을 작성해 주세요">
+							<button type="submit" id="btn-reply"><p>등록</p></button>
+						</div>
+						<div class="flex"  sec:authorize="isAnonymous()">
+							<input type="text" name="commentContent" placeholder="댓글을 작성해 주세요">
+							<a class="btn-reply" onclick=clickEvent(); ><p>등록</p></a>
+						</div>
+						
+					</form>
+					<!-- 댓글 출력 부분 -->
+					<div id="comment-list"></div>
+				</div>
+			</section>
+		</div>
+	</div>
+</main>
+
+
+</html>

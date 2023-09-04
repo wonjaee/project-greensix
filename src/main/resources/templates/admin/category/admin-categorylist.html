@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="//www.thymeleaf.org/extras/spring-security"
+	 th:replace="layout/admin-layout :: layout(~{::head}, ~{::main})">
+	 <head>
+		 <link rel="stylesheet" href="/css/admin/category.css">
+		 <script src="/js/admin/category.js"></script>
+	 </head>
+	<main class="admin-header">
+		<div class="admin-header-wrap"></div>
+		<div class="cate-div">
+			<th:block class="cate-wrap" th:each="allList:${list}">
+			    <div class="mainList flex" th:if="!${allList.parent}">
+			        <p class="vno" th:text="${allList.name}"></p>
+			        <input type="hidden" id="cateNo"  th:value="${allList.no}"> 
+			        <input class="cateDelHide" id="cateName" type="text" th:value="${allList.name}">
+			        <button type="button" class="category-btn open" id="cate-update" onclick="cateBtnClicked(this)">수정</button>
+			        <div class="cateDelHide">
+				        <button class="hideBtn" onclick="cateUpdateBtn(this)">완료</button>
+				        <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}"	th:value="${_csrf.token}"/>
+						<input type="hidden" name="_method" value="DELETE">
+				        <button type="button"  th:value="${allList.no}" onclick="cateDel(this)">삭제</button>
+			        </div>
+			    </div>
+			
+			    <div class="sublist flex" th:each="sublist:${list}" th:if=${sublist.parent==allList}>
+			        <p class="vno" th:text="${sublist.name}"></p>
+			        <input type="hidden" id="cateNo" th:value="${sublist.no}"> 
+			        <input class="cateDelHide" id="cateName" type="text" th:value="${sublist.name}">
+			     	<button type="button" class="category-btn open" id="cate-update" onclick="cateBtnClicked(this)">수정</button>
+			        <div class="cateDelHide">
+				        <button class="hideBtn" onclick="cateUpdateBtn(this)">완료</button>
+				        <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}"	th:value="${_csrf.token}"/>
+						<input type="hidden" name="_method" value="DELETE">
+				        <button type="button"  th:value="${allList.no}" onclick="cateDel(this)">삭제</button>
+			        </div>
+			    </div>
+			    </th:block>
+			</div>
+	</main>
+</html>

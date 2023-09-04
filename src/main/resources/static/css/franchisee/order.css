@@ -1,0 +1,149 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Gloock&family=Jua&display=swap');
+/* 
+	font-family: 'Gloock', serif;
+	font-family: 'Jua', sans-serif;
+ */
+ 
+
+[type="radio"] {
+  vertical-align: middle;
+  appearance: none;
+  border: max(2px, 0.1em) solid gray;
+  border-radius: 50%;
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.section-size{
+	width:1030px;
+	background-color: #e4eddc;
+	
+}
+.order{
+	width:1100px;
+	padding-top: 50px;
+	background-color: #fdffff;
+	margin: 0 auto;
+}
+.order .wrap .wrap-label div {
+	height: 50px;
+	line-height: 45px;	
+}
+.order .wrap .fc-logo{
+	width:500px;
+}
+
+.order .wrap .fc-logo .storeName{
+	font-size: 30px;
+	margin-left: 10px;
+	font-family: 'Jua', sans-serif;
+
+
+	
+}
+.order .wrap .fc-logo div{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center; 
+	text-align: center; 
+}
+
+.order .wrap{
+	width: 1150px;
+}
+
+.order .wrap .order-menu{
+	height: 50px;
+	align-items: center;
+	background-color: #88AF62;
+	color: white;
+	padding: 0 100px;
+}
+.order .wrap .order-menu a{
+	color: white;
+}
+.order .wrap .order-menu p{
+	font-size:20px;
+	font-family: 'Jua', sans-serif;
+}
+
+.order .wrap .order-waiting>li{
+	width:120px;
+	height: 160px;
+	text-align: center;
+	line-height: 160px;
+	background-color:		#95bb92;
+	font-family: 'Jua', sans-serif;
+	letter-spacing: 0.2em;
+	
+}
+.order .wrap .order-waiting li a{
+	display:block;
+	width: 100%;
+	height:100%;
+	font-weight: 700;
+	font-size: 20px;
+}
+.target{
+	background-color:	#c9ddb8
+}
+.wait {
+	border-bottom:1px solid #00000036;
+}
+.wait .time-info {
+	width: 120px;
+	height: 160px;
+}
+.wait .adress-info{
+	width: 600px;
+	height: 160px;
+}
+.order-btn button{
+	width: 100px;
+	height: 100px;
+	background-color: #88AF62;
+	font-weight: 700;
+	font-size: 18px;
+	color: white;
+	border-radius: 8px;
+	margin: 25px 0;
+}
+.wrap-label{
+	font-family: 'Jua', sans-serif;
+	font-size: 23px;
+	align-items: center;
+}
+[type="radio"]{
+	width:25px;height:25px;
+}
+.wrap-label .order-poss[type="radio"]:checked  {
+	border: 0.5em solid #40df40;
+	background-color: #40df40;
+}
+.wrap-label .order-impo[type="radio"]:checked  {
+	background-color: grey;
+}
+.wrap-label div:nth-child(2){
+	margin-left: 0.5em;
+}
+.wrap-label div label{
+	margin-left: 10px;
+}
+/* ////////////////////franchisee/wait//////////////////// */
+
+.wait .time-info{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center; 
+	text-align: center; 
+	font-size: 28px;
+	font-weight: 500;
+}
+.wait .adress-info{
+	font-size: 18px;
+	font-weight: 500;
+	
+}

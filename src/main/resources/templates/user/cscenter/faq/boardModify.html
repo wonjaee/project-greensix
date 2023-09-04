@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="//www.thymeleaf.org/extras/spring-security"
+	th:replace="layout/common-layout :: commonLayout( ~{::head}, ~{::main} )">
+<head>
+	<meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+	<script type="text/javascript">
+	
+		$(function(){
+			$(".cancel").click(back);
+		});
+	
+		function back(){
+			history.back();
+		}
+	</script>
+	
+	
+</head>
+<main>
+	<h1>게시글수정</h1>
+	<div class="wrap view-size">
+		<div class="write">
+			
+			<section id="write-form">
+				<h1>글쓰기 폼</h1>
+				<div class="wrap">
+					<form th:action="@{/faq/board/update/{no}(no=${board.no})}" method="post">
+						<p>
+							<input id="title" type="text" name="title" th:value="${board.title}">
+						</p>
+						<p>
+							<textarea id="content" name="content" th:text="${board.content}"></textarea>
+						</p>
+						<p>
+							<button type="submit">수정</button>
+							<button type="button" class="cancel">취소</button>
+						</p>
+					</form>
+				</div>
+			</section>
+		</div>
+	</div>
+</main>
+</html>

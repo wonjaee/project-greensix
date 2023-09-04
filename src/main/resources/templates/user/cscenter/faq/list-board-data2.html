@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:replace="layout/common-layout :: commonLayout( ~{::head}, ~{::main} )" >
+    <head>
+    	<script type="text/javascript">
+    		$(function(){
+    			faqList(1, 1)
+    		});
+    		function changeTarget(targetTag){
+    			$(".faq-menu").removeClass("target");
+    			$(targetTag).addClass("target");
+    		}
+    		
+    		function clickEvent(){
+    			
+    			var userInput = confirm("로그인 후 사용 하실수 있습니다.\n로그인페이지로 이동 하시겠습니까?");
+
+    			  if (userInput) {
+    			    // 사용자가 "확인"을 클릭한 경우, 로그인 화면으로 이동
+    			    window.location.href = "/login";
+    			  } else {
+    			    // 사용자가 "취소"를 클릭한 경우, 화면 이동하지 않음
+    			    // 다른 동작 수행 가능
+    			  }
+    		}
+    		
+    	</script>
+    	<style type="text/css">
+    		.faqBoard-size{
+    			width: 900px;
+    			padding-top: 50px;
+    		}
+    		
+    		.faqBoard-size .faqBoard{
+    			margin: 16px 0 16px;	
+    		}
+    		.faqBoard-size .faqBoard h2{
+    			font-size: 40px;
+    		}
+    		#faq-list .list-area{
+    			padding: 10px 0;
+    		}
+    		#faq-list .list-area .title{
+    			padding: 1em 0;
+    			font-weight: 700;
+    			border: 1px solid #a9a9a9;
+    			border-left: none;
+    			border-right: none;
+    		}
+    		#faq-list .list-area .title .quest{
+    			width: calc(1080px - 150px);
+    		}
+    		#faq-list .list-area ul>li>div{
+    			padding: 1em 0;
+    		}
+    		#faq-list .list-area div.answer{
+    			padding: 1em 1em 1em 150px;
+    			background-color: #ddd;
+    			
+    		}
+    		#faq-list .list-area .division{
+    			width: 150px;
+    		}
+    		#faq-list .question::before{
+    			content:"Q";
+    			background-color: #ff7787;
+    		}
+    		#faq-list .answer::before{
+    			content:"A";
+    			background-color: #7bdbd1;
+    		}
+    		#faq-list .text-icon::before{
+    			display: inline-flex;
+    			justify-content: center;
+    			align-items:center;
+    			width : 24px;
+    			height:24px;
+    			font-family: 'Roboto';
+    			font-size: 18px;
+    			color: #fff;
+    			border-radius: 50%;
+    			margin-right: 0.5em;
+    		}
+    		#faq-list .faq-div>li{
+    			display:flex;
+    			flex-direction: column;
+    			justify-content: center;
+    			align-items:center;
+    			padding: 1em;
+    			border: 1px solid rgb(255, 255, 255);
+    			width: 120px;
+    			height: 120px;
+    			cursor: pointer;
+    			border-radius: 5px;
+    		}
+    		#faq-list .faq-div{
+    			background-color: #ddd;
+    			padding: 20px;
+    		}
+    		#faq-list .faq-div>li .icon{
+    			display: flex;
+    			
+    		}
+    		#faq-list .list-area .pagging{
+    			padding: 30px 0;
+    		}
+    		#faq-list .faq-div>.target{
+    			background-color: #fff;
+    			border:1px solid rgba(110,50,0,1);
+    		}
+    		#faq-list .list-area .title .b-division{
+				width: 50px;;
+			}
+
+			#faq-list .list-area .title .b-quest{
+				width: calc(1080px - 150px);
+			}
+    		#faq-list .write-btn{
+    			background-color: #88af62;
+			    color: white;
+			    border-radius: 10px;
+			    padding: 5px;
+			    margin-bottom: 10px;
+    		}
+    		.list-area .b-writer{
+    			width: 80px;
+    		}
+    		#faq-list .faqBoard-li .li {
+    			padding : 20px;
+    		}
+    		#page .page-btn {
+    			border: 1px solid #e9e9e9;
+   				padding: 10px 16px;
+    		}
+    		
+    		#page {
+    			text-align: center;
+    			margin-top: 80px;
+    		}
+    		.search{
+    			margin-top: 30px;
+   				 text-align: center;
+    		}
+    		.search input{
+    			padding: 5px;
+    		}
+    		
+    		.list-content{
+    			border-bottom: 1px solid #a9a9a9; 
+    		}
+    		button {
+				border: 1px solid #aeaeae;
+			    width: 70px;
+			    height: 30px;
+			    border-radius: 5px;
+			}
+			
+			button:hover{
+				background-color: #88af62;
+				color: white;
+				cursor: pointer;
+			}
+    		
+    	</style>
+    </head>
+    <main>
+        <h1>메인영역</h1>
+        <div class="wrap view-size faqBoard-size">
+        	<section id="faq-list">
+        		<a href="/common/faq/faqBoard">
+        		<div class="faqBoard"><h2>문의하기</h2></div>
+        		</a>
+        		<div class="wrap">
+					<div class="list-area">
+						<div sec:authorize="isAuthenticated()" class="flex right">
+							<a class="write-btn" href="/faq/board/write">글쓰기</a>
+						</div>
+						<div sec:authorize="isAnonymous()" class="flex right">
+							<a class="write-btn" onclick=clickEvent();>글쓰기</a>
+						</div>
+						<div class="flex title">
+							<span class="b-division flex center" >번호</span>
+							<span class="b-quest flex center" >질문</span>
+							<span class="b-writer flex center" >작성자</span>
+						</div>
+						<ul class="list-content">
+							<li class="faqBoard-li" th:each="dto:${list}">
+								<div  class="li flex between">
+									<span class="bno  flex center" th:text="${dto.no}"></span>
+									<a th:href="|/faq/board/detail/${dto.no}|" class="b-title flex" th:text="${dto.title}"></a>
+									<span class="writer flex" th:text="${dto.creator.email}"></span>
+								</div>
+							</li>
+						</ul>
+						<div id="main-footer">
+						<div id="page">
+							<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+								<a class="page-btn" th:if="${page != nowPage}" th:href="@{/common/faq/faqBoard(page=${page - 1}, searchKeyword=${param.searchKeyword})}" th:text="${page}"></a>
+								<strong class="page-btn" th:if="${page == nowPage}" th:text="${page}" ></strong>
+							</th:block>
+						</div>
+						<form class="search" th:action="@{/common/faq/faqBoard}" method="get">
+							<input type="text" name="searchKeyword">
+							<button  type="submit">검색</button>
+						</form>
+					</div>
+					</div>
+        		</div>
+        	</section>
+        </div>
+    </main>
+</html>

@@ -1,0 +1,141 @@
+@charset "UTF-8";
+main {
+	margin-bottom: 50px;
+}
+
+button {
+	border: 1px solid #aeaeae;
+    width: 70px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+button:hover{
+	background-color: #88af62;
+	color: white;
+	cursor: pointer;
+}
+.detail-size{
+	width: 1080px;
+}
+
+#detail-main{
+	width: 1000px;
+	margin: 0 auto;
+}
+#detail-main #update{
+	text-align: end;
+	font-size: 16px;
+	font-weight: bold;
+	margin : 6px 0;
+}
+#detail-main #update>a{
+	padding: 2px 2px;
+	margin : 6px 0;
+}
+
+#detail-main #update>a:first-child{
+	border-right: 2px solid #000;
+	padding-right: 10px;
+}
+#detail ul{
+	width: 100%;
+	/* border: 3px solid #000; */
+}
+
+#detail #basic li{
+	border: 1px solid #a9a9a9;
+    padding: 1em 0;
+    border-radius: 10px;
+    width: 100%;
+}
+
+#detail ul li>* {
+	padding: 0 1em;
+}
+
+#detail ul li p{
+	width: 120px;
+	color: #777;
+	text-align: left;
+}
+
+#detail .basic-content {
+	height: 250px;
+    padding: 30px;
+}
+
+#detail .list {
+	margin-top: 6px;
+}
+/* //////댓글 리스트//////// */
+
+
+#comment-list > section > div:nth-child(2) > ul:nth-child(1)
+#comment-write > div {
+	margin-top: 40px;
+}
+#comment-write > div {
+    width: 600px;
+    justify-content: space-between;
+    display: flex;
+}
+
+.form-update{display: none;}
+
+#comment-list li:first-child {
+	width:738px
+}
+
+#comment-list div li{
+	padding:12px 22px;
+	text-align: center;
+}
+
+#comment-list div li {
+	padding: 15px;
+}
+
+#detail > div > div.changeState > div:nth-child(1) > a{
+	font-size:17px;
+	padding:5px;
+}
+
+#comment-write > div {
+	margin: 30px;
+}
+
+#comment-list .update .space,
+#comment-list .update-edit .space{
+	margin-right: 10px;
+	
+	
+}
+
+#comment-list .update-edit{
+	width: 178px;
+    display: flex;
+    margin-left: 14px;	
+}
+
+#comment-list .reply-list .content{
+	width: 100%;
+    display: inline-block;
+    text-align: initial;
+}
+#comment-list .reply-cont {
+	margin-top : 20px;
+}
+
+#comment-list .reply-cont ul:nth-child(1) {
+	border-top: 1px solid #e9e9e9;
+}
+#comment-list .reply-cont  ul{
+	border-bottom: 1px solid #e9e9e9;
+}
+
+/*///////////editComment/////////////*/
+.editComment{
+    width: 516px;
+    height: 30px;
+}

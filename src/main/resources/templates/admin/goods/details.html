@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="//www.thymeleaf.org/extras/spring-security"
+	 th:replace="layout/admin-layout :: layout(~{::head}, ~{::main})">
+<head>
+	<link rel="stylesheet" href="/css/admin/goods.css">
+	<!-- include libraries(jQuery, bootstrap) -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	<!-- include summernote css/js -->
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<script src="/js/summernote.js" ></script>
+	<script src="/js/admin/detail.js" ></script>
+	<!-- calendarBycho -->
+	<script defer src="/js/common/calendar.js" ></script>
+	<script defer src="/js/common/calendar-picker.js" ></script>
+	<link rel="stylesheet" href="/css/commons/calendar.css">
+</head>
+<main class="admin-header">
+	<h1>상품등록</h1>
+	<section id="goods-wrte" >
+		<div class="admin-header-wrap"></div>
+		<h1>상품등록</h1>
+		<div class="wrap">
+			<p>상품등록 페이지</p>
+			<hr>
+			<form id="form-goods" th:action="|/admin/goods/${detail.gno}|" method="post" onsubmit="return submitCheck()">
+				<ul>
+					<li>
+						<label>카테고리</label>
+						<input class="cno" type="hidden" th:value="${detail.category.no}">
+						<input class="pno" type="hidden" th:value="${detail.parent.no}">
+						<div class="category" value="0">
+						</div>
+						<div class="category2">
+							<select name="category">
+								
+							</select>
+						</div>
+					</li>
+					<li>
+						<label>상품명</label>
+						<input id="name" type="text" name="name" th:value="${detail.name}">
+						<div>
+							<pre><!-- 
+							 -->판매 상품과 직접 관련이 없는 다른 상품명, 스팸성 키워드 입력 시 관리자에 의해 판매 금지될 수 있습니다.
+<!--						 -->유명 상품 유사문구를 무단으로 도용하여 ~스타일, ~st 등과 같이 기재하는 경우 별도 고지 없이 제재될 수 있습니다.
+<!--						 -->전용 상품명을 사용 중인 경우 대표 상품명 수정 시에도 전용 상품명으로 노출됩니다.
+<!--						 -->상품명을 검색최적화 가이드에 잘 맞게 입력하면 검색 노출에 도움이 될 수 있습니다.<!--  
+							 --></pre>
+						</div>
+					</li>
+					<li>
+						<label>판매가</label>
+							<input id="price" type="text" name="price" placeholder="숫자만 입력" th:value="${detail.price}"><span>원</span>
+					</li>
+					<li>
+						<label>할인</label>
+						<dl>
+							<dt id="sale-info" class="flex">
+								<label>
+									<input type="radio" name="onSale" value="true" onclick="saleClicked()" th:checked="${detail.onSale eq true}">할인설정
+								</label>
+								<label>
+									<input type="radio" name="onSale" value="false" onclick="saleCancle()" th:checked="${detail.onSale eq false}">설정없음	
+								</label>
+								
+							</dt>
+							<dd>
+								<div class="sale-wrap">
+									<div class="flex" id="sale-duration">
+										<label>
+											<span>할인금액 : </span>
+										<input type="text" placeholder="할인금액" id="salePrice" name="discount" th:value="${detail.discount}"><span>원</span>
+										</label>
+										<label>
+											<input type="radio" name="onSaleDate" value="false" th:checked="!${detail.startDate}" onclick="dateCancel()">설정없음
+										</label>
+										<label>
+											<input type="radio" name="onSaleDate" value="true" th:checked="${detail.startDate}" onclick="dateClicked()">할인기간 설정
+										</label>
+									</div>
+									<div id="saleDate-wrap">
+										<label>
+											<span>할인기간 : </span>
+											<span id="saleDate">
+												<input type="text" onclick="showCalendar()"  placeholder="시작일" id="sale-start-date" name="startDate" th:value="${detail.startDate}">
+												<input type="text" onclick="showCalendar()"  placeholder="종료일" id="sale-end-date" name="endDate" th:value="${detail.endDate}">
+											</span>
+										</label>
+										
+										<th:block th:insert="~{flagment/calendar::#calendar-form}" />
+									</div>
+								</div>
+							</dd>
+						</dl>
+					</li>
+					<li>
+						<label>핫한상품</label>
+						<input type="radio" name="hotItem" value="true" th:checked="${detail.hotItem eq true}">설정
+						<input type="radio" name="hotItem" value="false" th:checked="${detail.hotItem eq false}">설정없음
+					</li>
+					<!-- <li>
+						<label>재고수량</label>
+						<input type="text" name="stock" placeholder="숫자만 입력"><span>개</span>
+					</li> -->
+					<li>
+						<label>상품이미지</label>
+						<div class="def-img">
+							<span>대표이미지</span>
+							<th:block th:each="img:${detail.gie}">
+								<div class="img-wrap" >
+									<label class="pre-img" th:if="${img.isDef==true}" th:style="|background-image: url('${img.url}');|">
+										<input type="file" onchange="tempUpload(this)">
+									</label>
+									<input type="hidden" class="bucketKey" name="bucketKey" >
+									<input type="hidden" class="orgName" name="orgName">
+									<input type="hidden" class="newName" name="newName">
+									<input type="hidden" class="def" name="def" value="true">
+									<input type="hidden" class="url" name="url">
+								</div>
+							</th:block>
+							<pre><!-- 
+							 -->권장 크기 : 1000 x 1000 (윈도대상 750 x 1000)
+<!--                         -->대표이미지 기준 1000x1000 이상 이미지를 등록하시면, 이미지 확대 기능이 제공됩니다.
+<!--                         -->쇼핑검색에 노출되지 않는 경우 가이드를 확인해주세요.
+							</pre>
+							
+						</div>
+<!--/* 						<div>
+							<span>추가이미지(최대5장)</span>
+							<div class="add-img flex">
+							<th:block th:each="list:${detail.gie}">
+								<div class="img-wrap">
+									<label class="pre-img" th:if="${list.isDef==false}" th:style="|background-image: url('${list.url}');|"><input type="file" onchange="tempUpload(this)"></label>
+									<input type="hidden" class="bucketKey" name="bucketKey">
+									<input type="hidden" class="orgName" name="orgName">
+									<input type="hidden" class="newName" name="newName">
+									<input type="hidden" class="def" name="def" value="false">
+									<input type="hidden" class="url" name="url">
+								</div>
+							</th:block>
+							</div>
+							<pre>
+							권장 크기 : 1000 x 1000 (윈도대상 750 x 1000)
+                       대표이미지 기준 1000x1000 이상 이미지를 등록하시면, 이미지 확대 기능이 제공됩니다.
+                       쇼핑검색에 노출되지 않는 경우 가이드를 확인해주세요.
+							</pre>
+						</div> */-->
+					</li>
+					<li>
+						<label>상세설명</label>
+						<textarea id="summernote" name="content" th:field="${detail.content}"></textarea>
+					</li>
+					<li>
+						<label>상품주요정보</label>
+					</li>
+					<li>
+						<label>상품정보제공고시</label>
+					</li>
+					<li>
+						<label>배송</label>
+					</li>
+					<li>
+						<label>반품/교환</label>
+					</li>
+					<li>
+						<label>A/S,특이사항</label>
+					</li>
+					<li>
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+						<input type="hidden" name = "_method" value = "put"/>
+						<button type="submit">상품수정</button>
+					</li>
+				</ul>
+			</form>
+		</div>
+	</section>
+	<script type="text/javascript">
+	
+		
+	</script>
+</main>	
+</html>

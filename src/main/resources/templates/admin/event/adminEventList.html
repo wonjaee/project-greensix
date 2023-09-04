@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="//www.thymeleaf.org/extras/spring-security"
+	 th:replace="layout/admin-layout :: layout(~{::head}, ~{::main})">
+    <head>
+        <!-- <link rel="stylesheet" href="/css/event/event.css"> -->
+        <script src="/js/notice/event.js"></script>
+    </head>
+    <main>
+        <section class="view-size flex" >
+	        
+	        <div style="margin:0 auto 100px;">
+	        <div class="content-right" >
+		        <h2>Event List</h2>
+		        <div  style="display: flex;display: grid;grid-template-columns: auto auto auto auto;">
+		        	
+		        	<div class="event_list_wr"  th:each="dto:${list}" style="padding:20px">
+		        		<div class="event_listBox" >
+		        			<a>
+		        				<img width="200" height="120"  alt="#" th:src="${dto.url}">
+		        			</a>
+		        			<dl class="event_list flex ">
+		        				<dt>
+		        					<a th:href="${'/event/'+dto.no}" th:text="${dto.name}">온라인 이벤트 어쩌구저쩌구 샬라샬라</a>
+		        				</dt>
+		        			</dl>
+		        		</div>
+		        		<div style="display: flex">
+					        <form th:action="|/admin/event/${dto.no}|" style="margin:0 20px 0 20px">
+					        	<button>수정</button>
+					        </form>
+					        <form th:action="|/admin/event/${dto.no}|" method="post">
+										<input type="hidden" name="_method" value="delete"/>
+										<input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+										<button>삭제</button>
+							</form>
+						</div>
+			        	</div>
+			        </div>
+		        </div>
+	        </div>
+        </section>
+    </main>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="//www.thymeleaf.org/extras/spring-security"
+	th:replace="layout/common-layout :: commonLayout( ~{::head}, ~{::main} )">
+<head>
+<link rel="stylesheet" href="/css/menu/menu.css">
+<link rel="stylesheet" href="/css/order/cartInfo.css">
+<script src="/js/order/order.js"></script>
+<script src="/js/order/cartInfo.js"></script>
+</head>
+<main>
+<section class="goods-main">
+	<h2 class="goods-tit">상품 페이지</h2>
+		<div class="menu-area flex center">
+			
+			<div>
+				<div class="category-area">
+					<h1>카테고리</h1>
+				</div>
+	
+				<div class="goods-area flex grid-container view-size">
+					<h1>상품</h1>
+	
+					<ul class="goods-list" th:each="dto:${list}">
+						<li><img alt="#" th:src="${dto.url}" height="190px;"></li>
+						<li class="tit" th:text="${dto.name}">이름</li>
+						<li class="goods-li" th:utext="${dto.content}">내용</li>
+						<li>
+							<div class="sale-cont flex center" th:if="${dto.onSale}" >
+								<span class="sale-dis"  th:with="rate=${dto.sale.discount *100 / dto.price}">
+									<span th:text="${#numbers.formatInteger(rate,1,'POINT')}">할인율</span><i>%</i>
+								</span>
+								<span th:with="dis=${dto.price-dto.sale.discount}">
+									<span class="sale-price" th:text="${#numbers.formatInteger(dis,3,'COMMA')}">할인후</span><i class="sale-won">원</i>
+								</span>
+								<span class="sale-or-price" style="text-decoration: line-through;">
+									<span th:text="${#numbers.formatInteger(dto.price,3,'COMMA')}">할인전</span><i>원</i>
+								</span>
+							</div>
+							<div class="sale-cont flex center" th:unless="${dto.onSale}" >
+								<span class="sale-price" >
+									<span th:text="${#numbers.formatInteger(dto.price,3,'COMMA')}">판매가</span><i>원</i>
+								</span>
+							</div>
+						<li>
+							<button onclick="addCart(this)" >담기</button>
+							<input class="gno" type="hidden" th:value="${dto.no}">
+							
+							<span style="display: none;" class="email" sec:authentication="name">회원정보-아이디</span>
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+		
+</section>
+<div id="showCart">
+</div>
+</main>
+</html>

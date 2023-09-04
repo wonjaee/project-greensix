@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" 
+	th:replace="layout/common-layout :: commonLayout( ~{::head}, ~{::main} )">
+    <head>
+        <link rel="stylesheet" href="/css/notice/notice.css">
+        <script src="/js/notice/notice.js"></script>  
+    </head>
+    <main>
+    	<div class="basic">    	
+	    	<div class="detailcontent">
+	    		<a href="/notice">
+	        		<div class="notice-up"><h2>NOTICE</h2></div>
+	        	</a>
+					<div class="table">
+						
+						<table class="noticeDetail-table">
+							<thead>
+								<tr class="flex between">						
+									<td th:text="${detail.title}">제목</td>
+									<td th:text="${detail.createdDate}">날짜</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td th:text="${detail.content}">내용</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+			</div>
+			<div class="btn-area flex center">
+				<button sec:authorize="hasRole('ROLE_ADMIN')" type="button" id="btn-update">수정</button>
+				<form th:action="@{|/notice/${detail.no}|}" method="post">
+	        			<input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}"	th:value="${_csrf.token}"/>
+						  <input type="hidden" name="_method" value="delete"/>
+	        			<button class="notice-delete" sec:authorize="hasRole('ROLE_ADMIN')">삭제</button>
+	        		</form>
+				<a href="/notice">목록</a>
+			</div>
+		</div>
+		
+		<!-- ----------------------------수정 버튼 클릭 시--------------------------- -->
+		<div class="update-form">
+			<form th:action="@{|/notice/${detail.no}|}" method="post">
+				<div class="update">
+				<ul>
+					
+					<li class="update-title flex center">
+						<label >제목</label>
+						<input type="text" name="title" th:value="${detail.title}">
+					</li>				
+					
+					<li class="update-content flex center">
+						<label >내용</label>
+						<textarea name="content">[(${detail.content})]</textarea>
+					</li>
+				</ul>	
+				</div>
+			
+				<div class="btn-area flex center">
+					<input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}"	th:value="${_csrf.token}"/>
+					<input type="hidden" name="_method" value="PUT"> 
+					<input type="hidden" name="no" th:value="${detail.no}">
+					<button type="submit" id="btn-updateend">수정완료</button>			
+					
+					<button type="button" id="btn-cancel" onclick="clickedBtnCancle()">취소</button>
+				</div>					
+			</form>
+		</div>
+		
+		
+		
+		
+	</main>
+</html>

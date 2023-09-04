@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+footer {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+footer>.wrap {
+	height: 180px;
+	padding-top: 30px;
+	font-size: 12px;
+	opacity: 0.8;
+}
+
+.footer>.wrap>a:not(:last-child):after {
+	content: "|";
+	padding: 0 0.5em;
+}
+
+.footer>.wrap2 {
+	padding: 20px 0;
+	font-size: 12px;
+	opacity: 0.4;
+}

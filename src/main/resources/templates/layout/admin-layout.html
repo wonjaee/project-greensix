@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org" xmlns:sec="//www.thymeleaf.org/extras/spring-security"
+	 th:fragment="layout(head, main)">
+    <head>
+        <meta charset="UTF-8">
+        <meta th:if="${_csrf}" name="_csrf" th:content="${_csrf.token}"/>
+		<meta th:if="${_csrf}" name="_csrf_header" th:content="${_csrf.headerName}"/>
+        <title>Insert title here</title>
+        <link rel="shortcut icon" href="/images/icon/myicon.svg">
+        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/js/admin/menu.js"></script>
+        <link rel="stylesheet" href="/css/commons/common.css">
+        <link rel="stylesheet" href="/css/admin/admin.css">
+        
+        <th:block th:replace="${head}" />
+    </head>
+    <body class="flex">
+        <th:block th:insert="~{layout/admin-header::header}" />
+        <th:block th:replace="${main}" />
+    </body>
+</html>
